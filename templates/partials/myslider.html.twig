@@ -2,7 +2,7 @@
   {% for item in grav.config.plugins.myslider.sliders %}
     <div class="item">
       <a href="{{ item.slider_link }}">
-        <img src="{{ 'http://objetpromo.dev/' ~ item.slider_cache }}" alt="" class="img-responsive">
+        <img src="{{ item.slider_cache }}" alt="" class="img-responsive">
       </a>
     </div>
   {% endfor %}
