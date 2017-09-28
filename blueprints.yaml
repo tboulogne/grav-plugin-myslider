@@ -1,0 +1,45 @@
+name: Myslider
+version: 0.1.0
+description: Easy slider config
+icon: plug
+author:
+  name: Thierry BOULOGNE
+  email: plugins@tng-concepts.com
+homepage: https://github.com/tboulogne/grav-plugin-myslider
+demo: http://demo.yoursite.com
+keywords: grav, plugin, slider
+bugs: https://github.com/tboulogne/grav-plugin-myslider/issues
+docs: https://github.com/tboulogne/grav-plugin-myslider/blob/develop/README.md
+license: MIT
+
+form:
+  validation: loose
+  fields:
+    enabled:
+      type: toggle
+      label: Plugin status
+      highlight: 1
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+    sliders:
+      type: list
+      style: vertical
+      array: true
+      fields:
+        .slider_link:
+          label: Lien
+          type: text
+        .slider_image:
+          label: Image
+          type: file
+          destination: 'user/plugins/myslider/sliders'
+          accept:
+            - image/*
+        .slider_cache:
+          label: cache_image
+          type: input
+          disabled: true
