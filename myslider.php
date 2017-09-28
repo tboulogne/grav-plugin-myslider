@@ -26,7 +26,9 @@ class MysliderPlugin extends Plugin
     {
         return [
             'onPluginsInitialized' => ['onPluginsInitialized', 0],
-            'onAdminSave' => ['onAdminSave', 0]
+            'onGetPageTemplates' => ['onGetPageTemplates', 0],
+            'onAdminSave' => ['onAdminSave', 0],
+
         ];
     }
 
@@ -36,11 +38,14 @@ class MysliderPlugin extends Plugin
     public function onPluginsInitialized()
     {
         // Don't proceed if we are in the admin plugin
+
         if (!$this->isAdmin()) {
 
         // Enable the main event we are interested in
         $this->enable([
-            'onPageContentRaw' => ['onPageContentRaw', 0]
+            'onPageContentRaw' => ['onPageContentRaw', 0],
+            'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0],
+            'onPageInitialized' => ['onPageInitialized', 0],
         ]);
       }else{
         $this->enable([
@@ -104,6 +109,41 @@ class MysliderPlugin extends Plugin
       $cache_image = str_replace($remove,'',$image);
       return $cache_image;
     }
+
+    public function onTwigTemplatePaths()
+    {
+        $twig = $this->grav['twig'];
+        $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
+    }
+
+
+    public function onTwigSiteVariables()
+    {
+        $twig = $this->grav['twig'];
+
+        $this->grav['assets']->addCss('plugin://myslider/css/myslider.css');
+        $this->grav['assets']->addJs('plugin://myslider/js/front.js', ['group'=>'bottom']);
+        //$this->grav['assets']->addJs('plugin://mycart/admin/assets/bootstrap-filestyle.min.js');
+
+    }
+
+    public function onGetPageTemplates(Event $event)
+    {
+        /** @var Types $types */
+        $types = $event->types;
+        $types->scanTemplates('plugins://myslider/templates/');
+    }
+
+
+
+    public function onPageInitialized(Event $event)
+    {
+      $this->enable([
+          'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
+      ]);
+    }
+
+
 
     public function onAdminMenu()
     {
