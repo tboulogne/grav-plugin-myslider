@@ -124,7 +124,12 @@ class MysliderPlugin extends Plugin
         $this->grav['assets']->addCss('plugin://myslider/css/myslider.css');
         $this->grav['assets']->addJs('plugin://myslider/js/front.js', ['group'=>'bottom']);
         //$this->grav['assets']->addJs('plugin://mycart/admin/assets/bootstrap-filestyle.min.js');
-
+        if($this->grav['config']->get('plugins.myslider.load_owl') == 1){
+          $this->grav['assets']->addJs('plugin://myslider/js/owl.carousel.min.js', ['group'=>'bottom']);
+          $this->grav['assets']->addCss('plugin://myslider/css/owl.carousel.css')
+          ->addCss('plugin://myslider/css/owl.theme.css')
+          ->addCss('plugin://myslider/css/owl.transition.css');
+        }
     }
 
     public function onGetPageTemplates(Event $event)

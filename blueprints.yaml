@@ -25,6 +25,17 @@ form:
         0: Disabled
       validate:
         type: bool
+    load_owl:
+      type: toggle
+      label: Charger la librairie OWL Carousel
+      highlight: 1
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+
     sliders:
       type: list
       style: vertical
